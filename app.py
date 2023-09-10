@@ -12,8 +12,6 @@ import plotly.graph_objs as go
 import plotly.tools as tls
 
 
-#pip install streamlit-card
-
 
 warnings.filterwarnings('ignore')
 
