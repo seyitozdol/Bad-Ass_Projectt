@@ -36,7 +36,7 @@ def load_data(x):
     df = pd.read_excel(x)
     return df
 
-df = load_data(r"C:\Users\zygom\OneDrive\Belgeler\GitHub\Bad-Ass_Projectt\main.xlsx")
+df = load_data("main.xlsx")
 
 
 
