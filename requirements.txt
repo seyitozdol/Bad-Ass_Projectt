@@ -9,3 +9,4 @@ altair
 pandas
 plotly
 pyarrow
+openpyxl
