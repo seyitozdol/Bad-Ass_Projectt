@@ -1,0 +1,226 @@
+import pandas as pd
+import streamlit as st
+import datetime
+import warnings
+import altair as alt
+import plotly.express as px
+from PIL import Image
+
+warnings.filterwarnings("ignore")
+
+logo = Image.open('goku.png')
+
+#st.sidebar.selectbox('Select the Language/Dil Seçiniz', ('eng', 'tr'))
+
+liste = ['Detaylı Segment Analizi Segmentasyonu', "RFM", "Kullanıcı Bazlı Kampanya Sorgusu"]
+
+page = st.sidebar.radio("Listeler", liste)
+
+pd.options.display.float_format = '{:,.0f}'.format
+
+@st.cache_data
+def load_data(x):
+    df = pd.read_excel(x)
+    return df
+
+df = load_data(r"C:\Users\zygom\OneDrive\Belgeler\GitHub\Bad-Ass_Projectt\main.xlsx")
+
+
+
+
+
+
+
+
+col1, col2, col3 = st.columns([0.1,0.8,0.1])
+with col1:
+    st.write(' ')
+
+with col2:
+    st.image(logo)
+
+with col3:
+    st.write(' ')
+
+from streamlit_extras.dataframe_explorer import dataframe_explorer
+
+
+filtered_df = dataframe_explorer(df, case=False)
+st.dataframe(filtered_df, use_container_width=True)
+
+import numpy as np
+import plotly.graph_objs as go
+
+import streamlit as st
+
+st.title("Plotly examples")
+
+st.header("Chart with two lines")
+
+trace0 = go.Scatter(x=[1, 2, 3, 4], y=[10, 15, 13, 17])
+trace1 = go.Scatter(x=[1, 2, 3, 4], y=[16, 5, 11, 9])
+data = [trace0, trace1]
+st.write(data)
+
+
+###
+
+st.header("Matplotlib chart in Plotly")
+
+import matplotlib.pyplot as plt
+
+f = plt.figure()
+arr = np.random.normal(1, 1, size=100)
+plt.hist(arr, bins=20)
+
+st.plotly_chart(f)
+
+
+###
+
+st.header("3D plot")
+
+x, y, z = np.random.multivariate_normal(np.array([0, 0, 0]), np.eye(3), 400).transpose()
+
+trace1 = go.Scatter3d(
+    x=x,
+    y=y,
+    z=z,
+    mode="markers",
+    marker=dict(
+        size=12,
+        color=z,  # set color to an array/list of desired values
+        colorscale="Viridis",  # choose a colorscale
+        opacity=0.8,
+    ),
+)
+
+data = [trace1]
+layout = go.Layout(margin=dict(l=0, r=0, b=0, t=0))
+fig = go.Figure(data=data, layout=layout)
+
+st.write(fig)
+
+
+###
+
+st.header("Fancy density plot")
+
+import numpy as np
+import plotly.figure_factory as ff
+
+# Add histogram data
+x1 = np.random.randn(200) - 2
+x2 = np.random.randn(200)
+x3 = np.random.randn(200) + 2
+
+# Group data together
+hist_data = [x1, x2, x3]
+
+group_labels = ["Group 1", "Group 2", "Group 3"]
+
+# Create distplot with custom bin_size
+fig = ff.create_distplot(hist_data, group_labels, bin_size=[0.1, 0.25, 0.5])
+
+# Plot!
+st.plotly_chart(fig)
+
+
+
+""" Grafik Yedek 
+st.sidebar.header("Choose your filter: ")
+
+    city = st.sidebar.multiselect("Pick the City", df["City"].unique())
+    if not city:
+        filtered_df = df.copy()
+    else:
+        filtered_df = df[df["City"].isin(city)]
+
+    col1, col2 = st.columns((2))
+
+    segment_df = filtered_df.groupby(by=["Segment"], as_index=False)["Sales"].sum()
+    with col1:
+        st.subheader("Segment Bazlı Satışlar")
+        fig = px.bar(segment_df, x="Segment", y="Sales", text=['${:,.2f}'.format(x) for x in segment_df["Sales"]],
+                     template="seaborn")
+        st.plotly_chart(fig, use_container_width=True, height=200)
+
+    with col2:
+        st.subheader("Şehir Bazlı Satışlar")
+        fig = px.pie(filtered_df, values="Sales", names="City", hole=0.5)
+        fig.update_traces(text=filtered_df["City"], textposition="outside")
+        st.plotly_chart(fig, use_container_width=True)
+    col3, col4 = st.columns((2))
+    with col3:
+        top_cities = df.groupby('City')['Sales'].sum().sort_values(ascending=False).head(10)
+        st.bar_chart(top_cities)
+
+    with col4:
+        campaign_effectiveness = df.groupby('Promosyon')['Sales'].sum().sort_values(ascending=False)
+        st.bar_chart(campaign_effectiveness)
+
+
+
+    st.title("Plotly examples")
+
+    st.header("Chart with two lines")
+
+    trace0 = go.Scatter(x=[1, 2, 3, 4], y=[10, 15, 13, 17])
+    trace1 = go.Scatter(x=[1, 2, 3, 4], y=[16, 5, 11, 9])
+    data = [trace0, trace1]
+    st.write(data)
+
+    ###
+
+
+    st.header("3D plot")
+
+    df_sample = df.head(400)
+
+    x = df_sample['Recency'].values
+    y = df_sample['Frequency'].values
+    z = df_sample['Sales'].values
+
+    trace1 = go.Scatter3d(
+        x=x,
+        y=y,
+        z=z,
+        mode="markers",
+        marker=dict(
+            size=12,
+            color=z,  # set color to an array/list of desired values
+            colorscale="Viridis",  # choose a colorscale
+            opacity=0.8,
+        ),
+    )
+
+    data = [trace1]
+    layout = go.Layout(margin=dict(l=0, r=0, b=0, t=0))
+    fig = go.Figure(data=data, layout=layout)
+
+    st.write(fig)
+
+
+
+    ###
+
+    st.header("Fancy density plot")
+
+
+
+    # Add histogram data
+    x1 = np.random.randn(200) - 2
+    x2 = np.random.randn(200)
+    x3 = np.random.randn(200) + 2
+
+    # Group data together
+    hist_data = [x1, x2, x3]
+
+    group_labels = ["Group 1", "Group 2", "Group 3"]
+
+    # Create distplot with custom bin_size
+    fig = ff.create_distplot(hist_data, group_labels, bin_size=[0.1, 0.25, 0.5])
+
+    # Plot!
+    st.plotly_chart(fig)
+"""
