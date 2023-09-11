@@ -68,15 +68,15 @@ if page == "Özet":
             text=[total_days],
             styles={
                 "card": {
-                    "width": "200px",
-                    "height": "200px",
-                    "border-radius": "30px",
+                    "width": "150px",
+                    "height": "150px",
+                    "border-radius": "20px",
                     "box-shadow": "0 0 10px rgba(0,0,0,0.5)",
 
                 },
                 "text": {
                     "font-family": "serif",
-                    "font-size": "30px",
+                    "font-size": "20px",
 
                 }
             },
@@ -89,15 +89,15 @@ if page == "Özet":
             text=[total_weeks],
             styles={
                 "card": {
-                    "width": "200px",
-                    "height": "200px",
-                    "border-radius": "30px",
+                    "width": "150px",
+                    "height": "150px",
+                    "border-radius": "20px",
                     "box-shadow": "0 0 10px rgba(0,0,0,0.5)",
 
                 },
                 "text": {
                     "font-family": "serif",
-                    "font-size": "30px",
+                    "font-size": "20px",
 
                 }
             },
@@ -110,15 +110,15 @@ if page == "Özet":
             text=[total_months],
             styles={
                 "card": {
-                    "width": "200px",
-                    "height": "200px",
-                    "border-radius": "30px",
+                    "width": "150px",
+                    "height": "150px",
+                    "border-radius": "20px",
                     "box-shadow": "0 0 10px rgba(0,0,0,0.5)",
 
                 },
                 "text": {
                     "font-family": "serif",
-                    "font-size": "30px",
+                    "font-size": "20px",
 
                 }
             },
@@ -132,15 +132,15 @@ if page == "Özet":
             title="Toplam Müşteri",
             styles={
                 "card": {
-                    "width": "200px",
-                    "height": "200px",
-                    "border-radius": "30px",
+                    "width": "150px",
+                    "height": "150px",
+                    "border-radius": "20px",
                     "box-shadow": "0 0 10px rgba(0,0,0,0.5)",
 
                 },
                 "text": {
                     "font-family": "serif",
-                    "font-size": "30px",
+                    "font-size": "20px",
 
                 }
             },
@@ -157,15 +157,15 @@ if page == "Özet":
             key=6,
             styles={
                 "card": {
-                    "width": "200px",
-                    "height": "200px",
-                    "border-radius": "30px",
+                    "width": "150px",
+                    "height": "150px",
+                    "border-radius": "20px",
                     "box-shadow": "0 0 10px rgba(0,0,0,0.5)",
 
                 },
                 "text": {
                     "font-family": "serif",
-                    "font-size": "30px",
+                    "font-size": "20px",
 
                 }
             }
@@ -178,15 +178,15 @@ if page == "Özet":
             key=7,
             styles={
                 "card": {
-                    "width": "200px",
-                    "height": "200px",
-                    "border-radius": "30px",
+                    "width": "150px",
+                    "height": "150px",
+                    "border-radius": "20px",
                     "box-shadow": "0 0 10px rgba(0,0,0,0.5)",
 
                 },
                 "text": {
                     "font-family": "serif",
-                    "font-size": "20px",
+                    "font-size": "15px",
 
                 }
             }
@@ -276,10 +276,6 @@ elif page == "Anasayfa":
         unsafe_allow_html=True)
 
 
-
-
-
-
 elif page == "Kampanyalar":
     col1, col2, col3 = st.columns([0.1, 0.8, 0.1])
     with col1:
@@ -298,8 +294,9 @@ elif page == "Kampanyalar":
 
 
 
+
     filtered_df = dataframe_explorer(df_filtered_columns, case=False)
-    st.dataframe(filtered_df, use_container_width=True)
+    #st.dataframe(filtered_df, use_container_width=True)
 
     total_days = (df['Date'].max() - df['Date'].min()).days + 1
     total_weeks = total_days // 7
